@@ -1,4 +1,4 @@
-import Note from "./Note";
+import { Note } from "./Note";
 import * as Tone from "tone";
 
 class Buffer {
@@ -15,12 +15,13 @@ class Buffer {
   // If less than 16 beats (4 measures) of music has been generated,
   // more notes should be added to the que
   fillBuffer() {
-    while (this.length < 16) {
-      const note = new Note(this, this.song);
+    while (this.length < 4) {
+      const note = new Note(this, this.song, this.playSpeed);
       this.que.push(note);
       //notationToFloat converts the Tone.js implementation of note length
       // notation to a float value
       this.length += note.notationToFloat();
+      console.log(this.que.length);
     }
   }
 
@@ -41,6 +42,7 @@ class Buffer {
           // this part of the script fires when the note is played, so therefore
           // we could remove the note from the buffer at this point
         }, note.startingPosition);
+        //this.que = this.que.filter((item) => item !== note);
       }
     });
   }

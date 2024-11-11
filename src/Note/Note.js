@@ -3,6 +3,12 @@ const octaves = [1, 2, 3, 4];
 //A collection of a few note lengths, ordered from longest to shortest
 const lengths = ["1m", "4n.", "4n", "8n.", "8n", "4t", "16n", "8t"];
 
+var play_speed = 0.5;
+
+function changeSpeed(newSpeed) {
+  play_speed = newSpeed;
+}
+
 // I decided to make a class for all notes that include extra information regarding
 // position in time and whether or not it is scheduled yet.
 // We could also add logic for the generation of new notes here. The note class
@@ -14,10 +20,13 @@ class Note {
     // chooses pitch, octave and note length randomly from the given options in
     // the top of the file.
     this.pitch = song.key[Math.floor(Math.random() * song.key.length)];
-    this.octave = octaves[Math.floor(Math.random() * octaves.length)];
-    this.length = lengths[Math.floor(Math.random() * lengths.length)];
+    this.octave = 3;
+    //this.octave = octaves[Math.floor(Math.random() * octaves.length)];
+    this.length = "8n";
+    //this.length = lengths[Math.floor(Math.random() * lengths.length)];
     // this makes each note start at the head of a new bar.
-    this.startingPosition = bar++ + ":0:0";
+    bar = bar + play_speed;
+    this.startingPosition = bar + ":0:0";
     this.isScheduled = false;
   }
 
@@ -37,8 +46,9 @@ class Note {
   }
 }
 
-//This is only used for demo purposes. At line 63, in "class Note":s constructor, it's used to schedule each new note at the beginning of a new bar.
-//This should be changed to something more "musical".
+// This is only used for demo purposes. At line 63, in "class Note":s
+// constructor, it's used to schedule each new note at the beginning of a new bar.
+// This should be changed to something more "musical".
 let bar = 0;
 
-export default Note;
+export { Note, changeSpeed };
