@@ -56,7 +56,7 @@ function App() {
   function TestButton() {
     return (
       <button variant="outlined" onClick={test}>
-        Outlined
+        Play!
       </button>
     );
   }
